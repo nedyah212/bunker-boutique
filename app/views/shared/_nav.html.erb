@@ -1,0 +1,21 @@
+<section id=main-nav>
+  <div>
+    <%= link_to "Home", pages_home_path %>
+  </div>
+  <div>
+    <%= link_to "About", pages_about_path %>
+  </div>
+  <div>
+  <%= link_to "Products", products_index_path %>
+  </div>
+</section>
+<style>
+  #main-nav {
+    display: flex;
+    flex-direction: row;
+  }
+  #main-nav div a{
+    text-decoration: none;
+    margin-left: 10px;
+  }
+</style>
