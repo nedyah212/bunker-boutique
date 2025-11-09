@@ -1,0 +1,18 @@
+<section>
+  <div class="product-card">
+
+    <div class="product-info">
+
+      <p><strong><%= product.name %></strong></p>
+
+      <div class="product-image">
+        <% if product.images.attached? %>
+          <%= image_tag product.images.first, alt: product.name %>
+        <% else %>
+          <div class="placeholder-image">No Image</div>
+        <% end %>
+      </div>
+      <p><strong>Price:</strong>$<%= product.price / 100.0 %></p>
+    </div>
+  </div>
+</section>

@@ -1,5 +1,6 @@
   body {
     background: linear-gradient(135deg, #f9f8f7 0%, #e8e6e3 100%);
+    min-height: 100vh;
     margin: 0px;
     padding: 0px;
   }
@@ -7,6 +8,10 @@
     padding-left: 1%;
     font-family: "StackSansHeadline", sans-serif;
     color: #e8e6e3
+  }
+  h2{
+    font-family: "StackSansHeadline", sans-serif;
+    color: #1f1f1f;
   }
   .nav-container {
     display: flex;
@@ -32,6 +37,46 @@
   }
   a:visited {
     color: inherit;
+  }
+  .sub-title h2 {
+    margin-left: 4%;
+  }
+  .products-list {
+    display: flex;
+    direction: row;
+    margin-left: 4%;
+    gap: 4%;
+  }
+  .product-card {
+    background: linear-gradient(135deg, #818080 0%, #e8e6e3 100%);
+    width: 200px;
+    height: 375px;
+    border: 1px solid #818080;
+    border-radius: 8px;
+  }
+  .product-info p {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+  .product-image {
+    display: flex;
+    justify-content: center;
+  }
+  .product-image img {
+    max-width: 180px;
+    height: auto;
+    border-radius: 8px;
+  }
+  .placeholder-image {
+    width: 180px;
+    height: 180px;
+    background: #e8e6e3;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 90px;
   }
   @font-face {
     font-family: "StackSansHeadline";
