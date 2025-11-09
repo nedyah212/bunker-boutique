@@ -1,10 +1,39 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+  body {
+    background: linear-gradient(135deg, #f9f8f7 0%, #e8e6e3 100%);
+    margin: 0px;
+    padding: 0px;
+  }
+  h1 {
+    padding-left: 1%;
+    font-family: "StackSansHeadline", sans-serif;
+    color: #e8e6e3
+  }
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(120deg, #1f1f1f 0%, #3d3c3c 100%);
+    padding-bottom: 2%;
+  }
+  .nav-container div a {
+    text-decoration: none;
+    font-family: "StackSansHeadline", sans-serif;
+  }
+  .nav-container div{
+    display: flex;
+    flex-direction: row;
+  }
+  .nav-container section div a {
+    padding-left: 2%;
+    font-size: 1.25em;
+    color: #e8e6e3
+  }
+  a {
+    color: inherit;
+  }
+  a:visited {
+    color: inherit;
+  }
+  @font-face {
+    font-family: "StackSansHeadline";
+    src: url("fonts/StackSansHeadline.ttf") format("truetype");
+  }
