@@ -36,6 +36,10 @@
     font-size: 1.25em;
     color: #e8e6e3
   }
+  .nav-container section div a:last-child {
+    margin-left: auto;
+    padding-right: 1%;
+  }
   .nav-container section div img {
     filter: invert(1);
     max-width: 40px;
