@@ -3,16 +3,18 @@
 
     <div class="product-info">
 
-      <p><strong><%= product.name %></strong></p>
+      <p><%= link_to product.name, product_path(product) %></p>
 
       <div class="product-image">
         <% if product.images.attached? %>
-          <%= image_tag product.images.first, alt: product.name %>
+          <%= link_to image_tag(product.images.first, alt: product.name), product_path(product) %>
         <% else %>
-          <div class="placeholder-image">No Image</div>
+          <%= link_to product_path(product) do %>
+            <div class="placeholder-image">No Image</div>
+          <% end %>
         <% end %>
       </div>
-      <p><strong>Price:</strong>$<%= product.price / 100.0 %></p>
+      <p><%= link_to "Price: $#{product.price / 100.0}", product_path(product) %></p>
     </div>
   </div>
 </section>

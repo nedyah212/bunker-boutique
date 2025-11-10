@@ -23,6 +23,10 @@
     text-decoration: none;
     font-family: "StackSansHeadline", sans-serif;
   }
+  .nav-container div a:hover {
+    transition: 0.2s ease;
+    color: #8f8f8f
+  }
   .nav-container div{
     display: flex;
     flex-direction: row;
@@ -31,6 +35,13 @@
     padding-left: 2%;
     font-size: 1.25em;
     color: #e8e6e3
+  }
+  .nav-container section div img {
+    filter: invert(1);
+    max-width: 40px;
+    max-height: 30px;
+    margin-left: auto;
+    padding-right: 1%;
   }
   a {
     color: inherit;
@@ -57,7 +68,11 @@
   .product-info p {
     display: flex;
     justify-content: center;
-    height: 100%;
+    font-family: "StackSansHeadline", sans-serif;
+  }
+  .product-info a {
+    text-decoration: none;
+    font-family: "StackSansHeadline", sans-serif;
   }
   .product-image {
     display: flex;
