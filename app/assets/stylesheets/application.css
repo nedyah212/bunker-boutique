@@ -97,6 +97,10 @@
     align-items: center;
     padding-bottom: 90px;
   }
+  .detail-image img{
+    max-height: 50%;
+    max-width: 50%;
+  }
   @font-face {
     font-family: "StackSansHeadline";
     src: url("fonts/StackSansHeadline.ttf") format("truetype");

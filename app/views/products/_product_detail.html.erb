@@ -1,0 +1,29 @@
+<div class="product-detail-card">
+  <div class="detail-image">
+    <% if @product.images.attached? %>
+      <% @product.images.each do |image| %>
+        <%= image_tag image, alt: @product.name %>
+      <% end %>
+    <% else %>
+      <div class="placeholder-image">No Images</div>
+    <% end %>
+  </div>
+
+  <div class="detail-info">
+    <h1><%= @product.name %></h1>
+
+    <p class="category"><strong>Category:</strong> <%= @product.category.name %></p>
+
+    <p class="price"><strong>Price:</strong> $<%= @product.price / 100.0 %></p>
+
+    <p class="stock"><strong>In Stock:</strong> <%= @product.quantity_in_stock %></p>
+
+    <% if @product.on_sale %>
+      <p class="sale-badge">ON SALE!</p>
+    <% end %>
+
+    <p class="description"><%= @product.description %></p>
+
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+</div>
