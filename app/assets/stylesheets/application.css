@@ -58,11 +58,10 @@
   }
   .products-list {
     display: flex;
-    direction: row;
-    margin-left: 4%;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 4%;
-    min-height: 100vh;
-    min-width: 100vh;
+    padding-left: 4%;
   }
   .product-card {
     background: linear-gradient(135deg, #818080 0%, #e8e6e3 100%);
