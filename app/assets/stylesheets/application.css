@@ -101,6 +101,35 @@
     max-height: 50%;
     max-width: 50%;
   }
+  .main-container{
+    display: flex;
+    flex-direction: row;
+  }
+  .filter {
+    padding: 20px;
+    border: 1px solid #000;
+  }
+
+  .filter h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  .filter a {
+    display: block;
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: #000;
+  }
+
+  .filter a:hover {
+    transition: 0.2s ease;
+    color: #e90a0a;
+  }
+
+  .filter a.active {
+    font-weight: bold;
+  }
   @font-face {
     font-family: "StackSansHeadline";
     src: url("fonts/StackSansHeadline.ttf") format("truetype");

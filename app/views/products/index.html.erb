@@ -2,11 +2,11 @@
   <%= render 'shared/title_card', title: 'Bunker Boutique' %>
   <%= render 'shared/nav' %>
 </div>
-<div class="sub-title">
-  <h2>Browse Our Collection</h2>
-</div>
-<div class="products-list">
-  <% @products.each do |product| %>
-    <%= render 'product_card', product: product %>
-  <% end %>
+<div class="main-container">
+  <div class="filter">
+    <%= render "products/product_filter" %>
+  </div>
+  <div class="products">
+    <%= render 'products/product_list'%>
+  </div>
 </div>

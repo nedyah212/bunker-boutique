@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.all
+    @products = @products.on_sale if params[:filter] == "sale"
+    @products = @products.newly_added if params[:filter] == "new"
   end
 
   def show

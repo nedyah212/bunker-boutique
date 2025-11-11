@@ -3,4 +3,6 @@ class Product < ApplicationRecord
   has_many_attached :images
   validates :name, presence: true
   validates :price, presence: true
+  scope :on_sale, -> { where(on_sale: true) }
+  scope :newly_added, -> { where("created_at > ?", 3.days.ago) }
 end
