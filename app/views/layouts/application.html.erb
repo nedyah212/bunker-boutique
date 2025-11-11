@@ -23,6 +23,13 @@
   </head>
 
   <body>
+    <div class="nav-container">
+      <%= render 'shared/title_card', title: 'Bunker Boutique' %>
+      <%= render 'shared/nav' %>
+    </div>
     <%= yield %>
+    <div>
+      <%= render 'shared/flash'%>
+    </div>
   </body>
 </html>
