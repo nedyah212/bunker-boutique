@@ -1,8 +1,10 @@
 class ProductsController < ApplicationController
   def index
+    @categories = Category.all
     @products = Product.all
     @products = @products.on_sale if params[:filter] == "sale"
     @products = @products.newly_added if params[:filter] == "new"
+    @products = @products.by_category(params[:category]) if params[:category].present?
   end
 
   def show

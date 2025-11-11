@@ -1,5 +1,13 @@
 <section>
-  <h3>Filter</h3>
-  <%= link_to "New", products_path(filter: "new") %>
-  <%= link_to "On Sale", products_path(filter: "sale") %>
+  <div>
+    <%= link_to "New", products_path(filter: "new") %>
+    <%= link_to "On Sale", products_path(filter: "sale") %>
+  </div>
+  <hr>
+  <div>
+    <%= link_to "All", products_path %>
+    <% @categories.each do |category| %>
+      <%= link_to category.name, products_path(category: category.id), class: params[:category].to_i == category.id ? "active" : "" %>
+    <% end %>
+  </div>
 </section>

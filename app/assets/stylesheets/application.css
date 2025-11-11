@@ -61,6 +61,8 @@
     direction: row;
     margin-left: 4%;
     gap: 4%;
+    min-height: 100vh;
+    min-width: 100vh;
   }
   .product-card {
     background: linear-gradient(135deg, #818080 0%, #e8e6e3 100%);
@@ -107,7 +109,6 @@
   }
   .filter {
     padding: 20px;
-    border: 1px solid #000;
   }
 
   .filter h3 {
