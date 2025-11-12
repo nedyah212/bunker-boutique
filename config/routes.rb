@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   get "pages/home"
   get "pages/about"
 
-  resources :products
+  resources :products, only: [:index, :show]
   resources :carts, only: [:index]
 
-  get 'admin/dashboard', to: 'admin#dashboard', as: 'admin_dashboard'
-
+  namespace :admin do
+    get 'dashboard', to: 'dashboard#index', as: 'dashboard'
+    resources :products, only: [:index, :destroy, :edit, :update, :new, :create]
+  end
 end
