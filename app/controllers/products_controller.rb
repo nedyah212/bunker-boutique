@@ -6,7 +6,8 @@ class ProductsController < ApplicationController
     @products = @products.newly_added if params[:filter] == "new"
     @products = @products.by_category(params[:category]) if params[:category].present?
     @products = @products.where(category_id: params[:category]) if params[:category].present?
-    @products = @products.where("name LIKE ?", "%#{params[:search]}%") if params[:search].present?
+    @products = @products.where("name LIKE ? OR description LIKE ?", "%#{params[:search]}%",
+                                         "%#{params[:search]}%") if params[:search].present?
   end
 
   def show

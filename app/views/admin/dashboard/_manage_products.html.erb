@@ -1,6 +1,7 @@
-<%= link_to "Add New Product", new_admin_product_path, class: "btn btn-primary mb-3" %>
-
-<h1>Products</h1>
+<div class="sub-title">
+  <p>Products</p>
+  <%= link_to "Add New Product", new_admin_product_path, class: "btn btn-primary mb-3" %>
+</div>
 <table>
   <thead>
     <tr>
@@ -26,5 +27,3 @@
     <% end %>
   </tbody>
 </table>
-
-<a href="/admin/products/new">New Product</a>

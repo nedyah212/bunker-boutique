@@ -73,6 +73,11 @@
   a:visited {
     color: inherit;
   }
+  a.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
   .sub-title h2 {
     margin-left: 4%;
   }
