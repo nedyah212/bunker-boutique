@@ -1,5 +1,9 @@
 <section>
   <div>
+    <%= render "shared/search"%>
+  </div>
+  <hr>
+  <div>
     <%= link_to "New", products_path(filter: "new") %>
     <%= link_to "On Sale", products_path(filter: "sale") %>
   </div>

@@ -1,0 +1,16 @@
+<div>
+  <form method="get" action="/products">
+    <select name="category" id="category">
+      <option value="">All Categories</option>
+      <% Category.all.each do |cat| %>
+        <option value="<%= cat.id %>" <%= 'selected' if params[:category] == cat.id.to_s %>>
+          <%= cat.name %>
+        </option>
+      <% end %>
+    </select>
+
+    <input type="text" name="search" placeholder="Search products..." value="<%= params[:search] %>">
+
+    <button type="submit">Search</button>
+  </form>
+</div>
