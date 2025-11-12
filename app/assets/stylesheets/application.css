@@ -36,8 +36,8 @@
     font-size: 1.25em;
     color: #e8e6e3
   }
-  .nav-container section div a:last-child {
-    margin-left: auto;
+  .nav-container section div a:last-child,
+  .nav-container section div a:nth-last-child(2) {
     padding-right: 1%;
   }
   .nav-container section div img {
@@ -49,13 +49,13 @@
   }
   .nav-title-container {
     display: flex;
-    align-items: center; /* vertical alignment */
+    align-items: center;
     gap: 1rem;
   }
 
   .login-bar,
   .logout-bar button{
-    margin-left: auto; /* push to far right */
+    margin-left: auto;
   }
 
   .login-bar {
@@ -65,7 +65,6 @@
   }
 
   .logout-bar button {
-    /* optional styling for button */
     padding: 0.5rem 1rem;
   }
   a {
