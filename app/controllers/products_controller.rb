@@ -8,6 +8,8 @@ class ProductsController < ApplicationController
     @products = @products.where(category_id: params[:category]) if params[:category].present?
     @products = @products.where("name LIKE ? OR description LIKE ?", "%#{params[:search]}%",
                                          "%#{params[:search]}%") if params[:search].present?
+    @products = @products.page(params[:products_page]).per(25)
+    @pagination_params = { filter: params[:filter], category: params[:category], search: params[:search] }
   end
 
   def show

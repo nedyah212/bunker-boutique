@@ -6,3 +6,6 @@
     <%= render 'product_card', product: product %>
   <% end %>
 </div>
+<div class="pagination">
+  <%= paginate @products, param_name: :products_page, params: @pagination_params %>
+</div>

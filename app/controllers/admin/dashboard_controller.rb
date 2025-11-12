@@ -4,8 +4,8 @@ module Admin
     before_action :require_admin
 
     def index
-      @products = Product.all
-      @categories = Category.all
+      @products = Product.page(params[:products_page]).per(12)
+      @categories = Category.page(params[:categories_page]).per(10)
     end
 
     private
