@@ -47,6 +47,27 @@
     margin-left: auto;
     padding-right: 1%;
   }
+  .nav-title-container {
+    display: flex;
+    align-items: center; /* vertical alignment */
+    gap: 1rem;
+  }
+
+  .login-bar,
+  .logout-bar button{
+    margin-left: auto; /* push to far right */
+  }
+
+  .login-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .logout-bar button {
+    /* optional styling for button */
+    padding: 0.5rem 1rem;
+  }
   a {
     color: inherit;
   }

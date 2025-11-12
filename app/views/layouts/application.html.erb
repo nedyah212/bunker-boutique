@@ -24,7 +24,10 @@
 
   <body>
     <div class="nav-container">
-      <%= render 'shared/title_card', title: 'Bunker Boutique' %>
+      <div class="nav-title-container">
+        <%= render 'shared/title_card', title: 'Bunker Boutique' %>
+        <%= render 'shared/login_bar' %>
+      </div>
       <%= render 'shared/nav' %>
     </div>
     <%= yield %>
