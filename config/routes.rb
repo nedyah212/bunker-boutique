@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "pages/home"
   get "pages/about"
 
+  resources :users, only: [:show]
   resources :products, only: [:index, :show]
   resources :carts, only: [:index]
 
