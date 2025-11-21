@@ -1,0 +1,5 @@
+<%= form_with url: add_to_cart_path(product.id), method: :post, local: true do |form| %>
+  <%= form.label :quantity, "Quantity:" %>
+  <%= form.select :quantity, (1..product.quantity_in_stock).to_a, { selected: cart[product.id.to_s] } %>
+  <%= form.submit "Update" %>
+<% end %>

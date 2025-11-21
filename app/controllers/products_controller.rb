@@ -19,8 +19,11 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
-    session[:cart] ||= []
-    session[:cart] << params[:id]
-    redirect_to products_path
+    session[:cart] ||= {}
+    product_id = params[:id].to_s
+    quantity = params[:quantity].to_i
+    quantity = 1 if quantity == 0
+    session[:cart][product_id] = quantity
+    redirect_to carts_path
   end
 end

@@ -1,9 +1,9 @@
 <h2>Cart</h2>
-  <div class="products-cart-list">
-    <% @products.each do |product| %>
-      <div>
-        <%= render 'shared/product_card', product: product %>
-      </div>
-    <% end %>
-  </div>
+<div class="products-list">
+  <% @products.each do |product| %>
+    <div>
+      <%= render 'shared/product_card', product: product %>
+      <%= render 'shared/quantity_form', product: product, cart: @cart %>
+    </div>
+  <% end %>
 </div>

@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   def index
-    product_ids = session[:cart] || []
-    @products = Product.where(id: product_ids)
+    @cart = session[:cart] || {}
+    @products = Product.where(id: @cart.keys)
   end
 end
