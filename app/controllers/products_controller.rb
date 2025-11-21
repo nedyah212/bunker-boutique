@@ -17,4 +17,10 @@ class ProductsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     redirect_to products_path, alert: "Product not found."
   end
+
+  def add_to_cart
+    session[:cart] ||= []
+    session[:cart] << params[:id]
+    redirect_to products_path
+  end
 end

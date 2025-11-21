@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
   def index
-    @cart_items = session[:cart] || []
+    @product_ids = session[:cart] || []
   end
 end

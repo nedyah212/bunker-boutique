@@ -1,4 +1,4 @@
-<%= form_with model: [:admin, @product], local: true, html: { multipart: true } do |f| %>
+<%= form_with model: [:admin, @product], local: true, html: { multipart: true } do |form| %>
   <% if @product.errors.any? %>
     <div>
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -9,44 +9,36 @@
       </ul>
     </div>
   <% end %>
-
   <div>
-    <%= f.label :category_id, "Category" %>
-    <%= f.collection_select :category_id, Category.all, :id, :name, { prompt: "Select a Category" } %>
+    <%= form.label :category_id, "Category" %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, { prompt: "Select a Category" } %>
   </div>
-
   <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
   </div>
-
   <div>
-    <%= f.label :description %>
-    <%= f.text_area :description, rows: 4 %>
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 4 %>
   </div>
-
   <div>
-    <%= f.label :price, "Price (in cents)" %>
-    <%= f.number_field :price %>
+    <%= form.label :price, "Price (in cents)" %>
+    <%= form.number_field :price %>
   </div>
-
   <div>
-    <%= f.label :quantity_in_stock, "Quantity in Stock" %>
-    <%= f.number_field :quantity_in_stock %>
+    <%= form.label :quantity_in_stock, "Quantity in Stock" %>
+    <%= form.number_field :quantity_in_stock %>
   </div>
-
   <div>
-    <%= f.check_box :on_sale %>
-    <%= f.label :on_sale, "On Sale?" %>
+    <%= form.check_box :on_sale %>
+    <%= form.label :on_sale, "On Sale?" %>
   </div>
-
   <div>
-    <%= f.label :images, "Upload Product Images" %>
-    <%= f.file_field :images, multiple: true, direct_upload: true %>
+    <%= form.label :images, "Upload Product Images" %>
+    <%= form.file_field :images, multiple: true, direct_upload: true %>
     <p>You can select multiple images</p>
   </div>
-
   <div>
-    <%= f.submit %>
+    <%= form.submit %>
   </div>
 <% end %>

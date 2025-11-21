@@ -3,7 +3,7 @@
     <%= link_to image_tag("home-icon.svg", alt: "Home"), pages_home_path %>
     <%= link_to image_tag("about-icon.svg", alt: "About"), pages_about_path %>
     <%= link_to image_tag("products-icon.svg", alt: "Products"), products_path %>
-    <%= link_to image_tag("cart-icon.svg", alt: "Shopping Cart"), carts_path %>
+    <%= link_to image_tag("cart-icon.svg", alt: "Shopping Cart (#{session[:cart]&.length || 0})"), carts_path %>
     <% if user_signed_in? && current_user.admin? %>
       <%= link_to image_tag("crown-icon.svg", alt: "Admin"), admin_dashboard_path %>
     <% end %>

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   get "carts/index"
+  post '/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
   root "pages#home"
 
   get "pages/home"
@@ -15,3 +16,12 @@ Rails.application.routes.draw do
     resources :categories, only: [:destroy, :edit, :update, :new, :create]
   end
 end
+
+
+
+
+
+
+
+
+
