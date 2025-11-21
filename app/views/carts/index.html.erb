@@ -2,7 +2,7 @@
   <div class="products-cart-list">
     <% @products.each do |product| %>
       <div>
-        product.name
+        <%= render 'shared/product_card', product: product %>
       </div>
     <% end %>
   </div>
