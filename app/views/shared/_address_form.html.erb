@@ -1,5 +1,13 @@
 <section>
-  <%= form_with model: address, local: true do |form| %>
+  <% if address.persisted? %>
+    <% url = user_address_path(@user, address) %>
+    <% method = :patch %>
+  <% else %>
+    <% url = user_addresses_path(@user) %>
+    <% method = :post %>
+  <% end %>
+
+  <%= form_with model: [address.user, address], local: true, url: url, method: method do |form| %>
     <div class="field">
       <%= form.label :street %>
       <%= form.text_field :street %>
@@ -19,6 +27,6 @@
       <%= form.label :province_id %>
       <%= form.collection_select :province_id, Province.all, :id, :name %>
     </div>
-    <%= f.submit %>
+    <%= form.submit %>
   <% end %>
 </section>
