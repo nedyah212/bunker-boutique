@@ -1,0 +1,24 @@
+<section>
+  <%= form_with model: address, local: true do |form| %>
+    <div class="field">
+      <%= form.label :street %>
+      <%= form.text_field :street %>
+    </div>
+
+    <div class="field">
+      <%= form.label :city %>
+      <%= form.text_field :city %>
+    </div>
+
+    <div class="field">
+      <%= form.label :postal_code %>
+      <%= form.text_field :postal_code %>
+    </div>
+
+    <div class="field">
+      <%= form.label :province_id %>
+      <%= form.collection_select :province_id, Province.all, :id, :name %>
+    </div>
+    <%= f.submit %>
+  <% end %>
+</section>
