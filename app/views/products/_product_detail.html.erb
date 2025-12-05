@@ -2,7 +2,7 @@
   <div class="detail-image">
     <% if @product.images.attached? %>
       <% @product.images.each do |image| %>
-        <%= image_tag image, alt: @product.name %>
+        <%= image_tag image, alt: @product.name, class: "detail-product-image" %>
       <% end %>
     <% else %>
       <div class="placeholder-image">No Images</div>
@@ -10,19 +10,24 @@
   </div>
 
   <div class="detail-info">
-    <h1><%= @product.name %></h1>
+    <h2><%= @product.name %></h2>
 
-    <p class="category"><strong>Category:</strong> <%= @product.category.name %></p>
+    <h3>Category</h3>
+    <p><%= @product.category.name %></p>
 
-    <p class="price"><strong>Price:</strong> $<%= @product.price / 100.0 %></p>
+    <h3>Price</h3>
+    <p>$<%= @product.price / 100.0 %></p>
 
-    <p class="stock"><strong>In Stock:</strong> <%= @product.quantity_in_stock %></p>
+    <h3>Stock</h3>
+    <p><%= @product.quantity_in_stock %></p>
 
     <% if @product.on_sale %>
-      <p class="sale-badge">ON SALE!</p>
+      <h3>Sale</h3>
+      <p>ON SALE!</p>
     <% end %>
 
-    <p class="description"><%= @product.description %></p>
+    <h3>Description</h3>
+    <p><%= @product.description %></p>
 
     <%= button_to "Add to Cart", add_to_cart_path(@product), method: :post %>
   </div>
