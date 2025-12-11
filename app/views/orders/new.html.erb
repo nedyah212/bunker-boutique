@@ -52,30 +52,83 @@
 
   <hr>
 
-  <%= form_with model: @order, url: orders_path, local: true do |form| %>
-    <h3>Shipping Address</h3>
+  <h3>Shipping Address</h3>
 
-    <% if current_user.addresses.any? %>
-      <% current_user.addresses.each do |address| %>
-        <p>
-          <label>
-            <%= radio_button_tag :address_id, address.id, address == @address %>
-            <%= address.street %>,
-            <%= address.city %>,
-            <%= address.province.name %>,
-            <%= address.postal_code %>
-          </label>
-        </p>
-      <% end %>
-    <% else %>
-      <p>You don't have any saved addresses. Please <%= link_to "add an address", user_path(current_user) %> before checking out.</p>
+  <% if current_user.addresses.any? %>
+    <% current_user.addresses.each do |address| %>
+      <p>
+        <label>
+          <%= radio_button_tag :address_id, address.id, address == @address, class: "address-radio" %>
+          <%= address.street %>,
+          <%= address.city %>,
+          <%= address.province.name %>,
+          <%= address.postal_code %>
+        </label>
+      </p>
     <% end %>
 
-    <% if current_user.addresses.any? %>
+    <%= form_with url: process_payment_path, method: :post, id: "payment-form" do |f| %>
+      <%= f.hidden_field :address_id, id: "selected-address-id" %>
+
+      <h3>Payment Information</h3>
+      <div class="payment" id="card-element">
+        <!-- Stripe will insert the card input here -->
+      </div>
+
+      <div id="card-errors" role="alert"></div>
+
       <p>
-        <%= form.submit "Place Order" %>
+        <%= f.submit "Place Order", class: "btn btn-primary" %>
         <%= link_to "Back to Cart", carts_path %>
       </p>
     <% end %>
+  <% else %>
+    <p>You don't have any saved addresses. Please <%= link_to "add an address", user_path(current_user) %> before checking out.</p>
   <% end %>
 </div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<% if Rails.configuration.stripe[:publishable_key].present? %>
+<script>
+  var stripe = Stripe('<%= Rails.configuration.stripe[:publishable_key] %>');
+  var elements = stripe.elements();
+  var cardElement = elements.create('card');
+  cardElement.mount('#card-element');
+
+  // Update hidden field when address is selected
+  document.querySelectorAll('.address-radio').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      document.getElementById('selected-address-id').value = this.value;
+    });
+  });
+
+  // Set initial address value
+  var selectedRadio = document.querySelector('.address-radio:checked');
+  if (selectedRadio) {
+    document.getElementById('selected-address-id').value = selectedRadio.value;
+  }
+
+  var form = document.getElementById('payment-form');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const {token, error} = await stripe.createToken(cardElement);
+
+    if (error) {
+      document.getElementById('card-errors').textContent = error.message;
+    } else {
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+
+      form.submit();
+    }
+  });
+</script>
+<% else %>
+<script>
+  console.error('Stripe publishable key is not configured');
+</script>
+<% end %>

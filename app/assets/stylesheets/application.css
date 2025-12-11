@@ -176,3 +176,14 @@
 .content {
   padding-left: 2%;
 }
+
+.payment{
+  display:flex;
+  flex-direction: column;
+}
+
+.flash,
+.notice,
+.alert {
+  padding-left: 2%;
+}

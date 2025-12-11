@@ -65,3 +65,4 @@ end
 gem "faker"
 gem 'devise'
 gem 'kaminari'
+gem 'stripe'

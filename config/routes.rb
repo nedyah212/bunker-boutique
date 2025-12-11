@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :products, only: [:index, :show]
   resources :carts, only: [:index]
-  resources :orders
+
+  resources :orders, only: [:new, :create, :show]
+  post 'process_payment', to: 'orders#process_payment'
 
   resources :users, only: [:show] do
     post 'addresses', to: 'users#create_address', as: 'addresses'

@@ -1,7 +1,7 @@
 <div class="content">
     <h2>Order Confirmation</h2>
 
-  <p><strong>✓ Thank you for your order!</strong></p>
+  <p><strong>Thank you for your order, <%= current_user.first_name %>!</strong></p>
   <p>Order #<%= @order.id %></p>
   <p>Status: <%= @order.status.titleize %></p>
   <p>Order Date: <%= @order.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>

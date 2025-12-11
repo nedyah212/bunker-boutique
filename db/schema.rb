@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_12_125630) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_11_182135) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -76,10 +76,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_125630) do
     t.string "status"
     t.integer "total_price"
     t.integer "tax_amount"
-    t.string "stripe_customer_id"
     t.string "stripe_payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_customer_id"
     t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -117,6 +117,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_125630) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.boolean "admin", default: false
+    t.string "stripe_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
