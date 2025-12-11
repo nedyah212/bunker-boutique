@@ -8,6 +8,18 @@
   <% end %>
 
   <%= form_with model: [address.user, address], local: true, url: url, method: method do |form| %>
+    <h3>Personal Information</h3>
+    <div class="field">
+      <%= label_tag :first_name %>
+      <%= text_field_tag :first_name, @user.first_name %>
+    </div>
+
+    <div class="field">
+      <%= label_tag :last_name %>
+      <%= text_field_tag :last_name, @user.last_name %>
+    </div>
+
+    <h3>Address</h3>
     <div class="field">
       <%= form.label :street %>
       <%= form.text_field :street %>
@@ -27,6 +39,7 @@
       <%= form.label :province_id %>
       <%= form.collection_select :province_id, Province.all, :id, :name %>
     </div>
+
     <%= form.submit %>
   <% end %>
 </section>

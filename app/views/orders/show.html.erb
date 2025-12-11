@@ -10,6 +10,7 @@
 
   <h3>Shipping Address</h3>
   <p>
+    <%= @order.user.first_name %> <%= @order.user.last_name %><br>
     <%= @order.address.street %><br>
     <%= @order.address.city %>, <%= @order.address.province.name %><br>
     <%= @order.address.postal_code %>
