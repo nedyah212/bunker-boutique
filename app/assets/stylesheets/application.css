@@ -1,7 +1,7 @@
   body {
     background: linear-gradient(135deg, #f9f8f7 0%, #e8e6e3 100%);
     min-height: 100vh;
-    margin: 0px;
+    margin: 0;
     padding: 0px;
   }
   h1 {
@@ -165,10 +165,14 @@
   }
 
   .detail-product-image {
-  width: 30%;      /* Resizes image to 30% of container/screen */
-  height: auto;    /* Maintains aspect ratio */
+  width: 30%;
+  height: auto;
   border-radius: 8px;
   padding-top: 5%;
   padding-left: 5%;
-  margin: 0 auto;  /* Center the image */
+  margin: 0 auto;
+}
+
+.content {
+  padding-left: 2%;
 }

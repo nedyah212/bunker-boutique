@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @cart_items = get_cart_items
-    @address = current_user.addresses.first || current_user.addresses.build
+    @address = current_user.addresses.first
     @provinces = Province.all
 
     if @cart_items.empty?
@@ -13,11 +13,16 @@ class OrdersController < ApplicationController
       return
     end
 
+    if current_user.addresses.empty?
+      redirect_to user_path(current_user), alert: "Please add a shipping address before checking out."
+      return
+    end
+
     calculate_totals
   end
 
   def create
-    @order = current_user.orders.build(order_params)
+    @order = current_user.orders.build
     @cart_items = get_cart_items
 
     if @cart_items.empty?
@@ -25,22 +30,17 @@ class OrdersController < ApplicationController
       return
     end
 
-    # Handle address
-    if params[:use_existing_address] == "true" && params[:address_id].present?
-      @order.address_id = params[:address_id]
-    else
-      # Create new address
-      address = current_user.addresses.build(address_params)
-      if address.save
-        @order.address = address
-      else
-        @provinces = Province.all
-        calculate_totals
-        flash.now[:alert] = "Please provide a valid address."
-        render :new
-        return
-      end
+    # Require address selection
+    if params[:address_id].blank?
+      @provinces = Province.all
+      @address = current_user.addresses.first
+      calculate_totals
+      flash.now[:alert] = "Please select a shipping address."
+      render :new
+      return
     end
+
+    @order.address_id = params[:address_id]
 
     # Calculate totals based on province
     province = @order.address.province
@@ -68,8 +68,9 @@ class OrdersController < ApplicationController
       redirect_to order_path(@order), notice: "Order placed successfully!"
     else
       @provinces = Province.all
+      @address = current_user.addresses.first
       calculate_totals
-      flash.now[:alert] = "Unable to create order."
+      flash.now[:alert] = "Unable to create order: #{@order.errors.full_messages.join(', ')}"
       render :new
     end
   end
@@ -103,7 +104,7 @@ class OrdersController < ApplicationController
       @subtotal += product.price * quantity
     end
 
-    # Use user's address province if available, otherwise use a default for display
+    # Use user's first address province for tax calculation
     province = current_user.addresses.first&.province || Province.find_by(code: "ON")
     tax_rate = calculate_tax_rate(province)
 
@@ -131,13 +132,5 @@ class OrdersController < ApplicationController
     else
       province.gst_rate + province.pst_rate
     end
-  end
-
-  def order_params
-    params.require(:order).permit(:address_id)
-  end
-
-  def address_params
-    params.require(:address).permit(:street, :city, :postal_code, :province_id)
   end
 end

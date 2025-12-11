@@ -1,138 +1,81 @@
-<h2>Checkout</h2>
+<div class="content">
+  <h2>Checkout</h2>
 
-<h3>Order Summary</h3>
+  <h3>Order Summary</h3>
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Subtotal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @cart_items.each do |product, quantity| %>
+  <table border="1">
+    <thead>
       <tr>
-        <td><%= product.name %></td>
-        <td>$<%= sprintf("%.2f", product.price / 100.0) %></td>
-        <td><%= quantity %></td>
-        <td>$<%= sprintf("%.2f", (product.price * quantity) / 100.0) %></td>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
       </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |product, quantity| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td>$<%= sprintf("%.2f", product.price / 100.0) %></td>
+          <td><%= quantity %></td>
+          <td>$<%= sprintf("%.2f", (product.price * quantity) / 100.0) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3"><strong>Subtotal:</strong></td>
+        <td>$<%= sprintf("%.2f", @subtotal / 100.0) %></td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <strong>Tax (<%= @province.name %>):</strong>
+          <% if @province.hst_rate > 0 %>
+            <br>HST (<%= @province.hst_rate %>%)
+          <% else %>
+            <% if @province.gst_rate > 0 %>
+              <br>GST (<%= @province.gst_rate %>%)
+            <% end %>
+            <% if @province.pst_rate > 0 %>
+              <br>PST (<%= @province.pst_rate %>%)
+            <% end %>
+          <% end %>
+        </td>
+        <td>$<%= sprintf("%.2f", @tax_amount / 100.0) %></td>
+      </tr>
+      <tr>
+        <td colspan="3"><strong>Total:</strong></td>
+        <td><strong>$<%= sprintf("%.2f", @total / 100.0) %></strong></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <hr>
+
+  <%= form_with model: @order, url: orders_path, local: true do |form| %>
+    <h3>Shipping Address</h3>
+
+    <% if current_user.addresses.any? %>
+      <% current_user.addresses.each do |address| %>
+        <p>
+          <label>
+            <%= radio_button_tag :address_id, address.id, address == @address %>
+            <%= address.street %>,
+            <%= address.city %>,
+            <%= address.province.name %>,
+            <%= address.postal_code %>
+          </label>
+        </p>
+      <% end %>
+    <% else %>
+      <p>You don't have any saved addresses. Please <%= link_to "add an address", user_path(current_user) %> before checking out.</p>
     <% end %>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3"><strong>Subtotal:</strong></td>
-      <td>$<%= sprintf("%.2f", @subtotal / 100.0) %></td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <strong>Tax (<%= @province.name %>):</strong>
-        <% if @province.hst_rate > 0 %>
-          <br>HST (<%= @province.hst_rate %>%)
-        <% else %>
-          <% if @province.gst_rate > 0 %>
-            <br>GST (<%= @province.gst_rate %>%)
-          <% end %>
-          <% if @province.pst_rate > 0 %>
-            <br>PST (<%= @province.pst_rate %>%)
-          <% end %>
-        <% end %>
-      </td>
-      <td>$<%= sprintf("%.2f", @tax_amount / 100.0) %></td>
-    </tr>
-    <tr>
-      <td colspan="3"><strong>Total:</strong></td>
-      <td><strong>$<%= sprintf("%.2f", @total / 100.0) %></strong></td>
-    </tr>
-  </tfoot>
-</table>
 
-<hr>
-
-<%= form_with model: @order, url: orders_path, local: true do |form| %>
-  <h3>Shipping Address</h3>
-
-  <% if current_user.addresses.any? %>
-    <p>
-      <label>
-        <%= radio_button_tag :use_existing_address, "true", true %>
-        Use existing address
-      </label>
-    </p>
-
-    <% current_user.addresses.each do |address| %>
+    <% if current_user.addresses.any? %>
       <p>
-        <label>
-          <%= radio_button_tag :address_id, address.id, address == @address %>
-          <%= address.street %>,
-          <%= address.city %>,
-          <%= address.province.name %>,
-          <%= address.postal_code %>
-        </label>
+        <%= form.submit "Place Order" %>
+        <%= link_to "Back to Cart", carts_path %>
       </p>
     <% end %>
-
-    <p>
-      <label>
-        <%= radio_button_tag :use_existing_address, "false" %>
-        Use new address
-      </label>
-    </p>
   <% end %>
-
-  <div id="new-address-form">
-    <%= fields_for :address, @address do |address_form| %>
-      <p>
-        <%= address_form.label :street, "Street Address" %><br>
-        <%= address_form.text_field :street, required: true %>
-      </p>
-
-      <p>
-        <%= address_form.label :city %><br>
-        <%= address_form.text_field :city, required: true %>
-      </p>
-
-      <p>
-        <%= address_form.label :province_id, "Province" %><br>
-        <%= address_form.collection_select :province_id, @provinces, :id, :name,
-            { prompt: "Select Province" },
-            { required: true } %>
-      </p>
-
-      <p>
-        <%= address_form.label :postal_code, "Postal Code" %><br>
-        <%= address_form.text_field :postal_code, placeholder: "A1A 1A1", required: true %>
-      </p>
-    <% end %>
-  </div>
-
-  <p>
-    <%= form.submit "Place Order" %>
-    <%= link_to "Back to Cart", carts_path %>
-  </p>
-<% end %>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const useExistingRadio = document.querySelector('input[name="use_existing_address"][value="true"]');
-    const useNewRadio = document.querySelector('input[name="use_existing_address"][value="false"]');
-    const newAddressForm = document.getElementById('new-address-form');
-
-    if (useExistingRadio && useNewRadio) {
-      function toggleAddressForm() {
-        if (useNewRadio.checked) {
-          newAddressForm.style.display = 'block';
-        } else {
-          newAddressForm.style.display = 'none';
-        }
-      }
-
-      useExistingRadio.addEventListener('change', toggleAddressForm);
-      useNewRadio.addEventListener('change', toggleAddressForm);
-
-      toggleAddressForm();
-    }
-  });
-</script>
+</div>

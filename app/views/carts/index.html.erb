@@ -1,33 +1,34 @@
-<h2>Shopping Cart</h2>
+<div class="content">
+  <h2>Shopping Cart</h2>
+  <% if @products.any? %>
+    <div>
+      <% @products.each do |product| %>
+        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+          <%= render 'shared/product_card', product: product %>
+          <%= render 'shared/quantity_form', product: product, cart: @cart %>
+        </div>
+      <% end %>
+    </div>
 
-<% if @products.any? %>
-  <div>
+    <hr>
+
+    <% subtotal = 0 %>
     <% @products.each do |product| %>
-      <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-        <%= render 'shared/product_card', product: product %>
-        <%= render 'shared/quantity_form', product: product, cart: @cart %>
-      </div>
+      <% quantity = @cart[product.id.to_s].to_i %>
+      <% subtotal += product.price * quantity %>
     <% end %>
-  </div>
 
-  <hr>
+    <h3>Cart Summary</h3>
+    <p><strong>Subtotal:</strong> $<%= sprintf("%.2f", subtotal / 100.0) %></p>
+    <p><strong>Items:</strong> <%= @cart.values.sum %></p>
 
-  <% subtotal = 0 %>
-  <% @products.each do |product| %>
-    <% quantity = @cart[product.id.to_s].to_i %>
-    <% subtotal += product.price * quantity %>
+    <p>
+      <%= link_to "Proceed to Checkout", new_order_path %>
+      |
+      <%= link_to "Continue Shopping", products_path %>
+    </p>
+  <% else %>
+    <p>Your cart is empty.</p>
+    <p><%= link_to "Browse Products", products_path %></p>
   <% end %>
-
-  <h3>Cart Summary</h3>
-  <p><strong>Subtotal:</strong> $<%= sprintf("%.2f", subtotal / 100.0) %></p>
-  <p><strong>Items:</strong> <%= @cart.values.sum %></p>
-
-  <p>
-    <%= link_to "Proceed to Checkout", new_order_path %>
-    |
-    <%= link_to "Continue Shopping", products_path %>
-  </p>
-<% else %>
-  <p>Your cart is empty.</p>
-  <p><%= link_to "Browse Products", products_path %></p>
-<% end %>
+</div>

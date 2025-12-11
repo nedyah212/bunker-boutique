@@ -1,74 +1,76 @@
-<h2>Order Confirmation</h2>
+<div class="content">
+    <h2>Order Confirmation</h2>
 
-<p><strong>✓ Thank you for your order!</strong></p>
-<p>Order #<%= @order.id %></p>
-<p>Status: <%= @order.status.titleize %></p>
-<p>Order Date: <%= @order.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+  <p><strong>✓ Thank you for your order!</strong></p>
+  <p>Order #<%= @order.id %></p>
+  <p>Status: <%= @order.status.titleize %></p>
+  <p>Order Date: <%= @order.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
 
-<hr>
+  <hr>
 
-<h3>Shipping Address</h3>
-<p>
-  <%= @order.address.street %><br>
-  <%= @order.address.city %>, <%= @order.address.province.name %><br>
-  <%= @order.address.postal_code %>
-</p>
+  <h3>Shipping Address</h3>
+  <p>
+    <%= @order.address.street %><br>
+    <%= @order.address.city %>, <%= @order.address.province.name %><br>
+    <%= @order.address.postal_code %>
+  </p>
 
-<hr>
+  <hr>
 
-<h3>Order Items</h3>
-<table border="1">
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Unit Price</th>
-      <th>Quantity</th>
-      <th>Tax</th>
-      <th>Subtotal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @order_items.each do |item| %>
+  <h3>Order Items</h3>
+  <table border="1">
+    <thead>
       <tr>
-        <td><%= link_to item.product.name, product_path(item.product) %></td>
-        <td>$<%= sprintf("%.2f", item.unit_price / 100.0) %></td>
-        <td><%= item.quantity %></td>
-        <td>$<%= sprintf("%.2f", (item.unit_tax * item.quantity) / 100.0) %></td>
-        <td>$<%= sprintf("%.2f", (item.unit_price * item.quantity) / 100.0) %></td>
+        <th>Product</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+        <th>Tax</th>
+        <th>Subtotal</th>
       </tr>
-    <% end %>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="4"><strong>Subtotal:</strong></td>
-      <td>$<%= sprintf("%.2f", (@order.total_price - @order.tax_amount) / 100.0) %></td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <strong>Tax (<%= @order.address.province.name %>):</strong>
-        <% province = @order.address.province %>
-        <% if province.hst_rate > 0 %>
-          <br>HST (<%= province.hst_rate %>%)
-        <% else %>
-          <% if province.gst_rate > 0 %>
-            <br>GST (<%= province.gst_rate %>%)
+    </thead>
+    <tbody>
+      <% @order_items.each do |item| %>
+        <tr>
+          <td><%= link_to item.product.name, product_path(item.product) %></td>
+          <td>$<%= sprintf("%.2f", item.unit_price / 100.0) %></td>
+          <td><%= item.quantity %></td>
+          <td>$<%= sprintf("%.2f", (item.unit_tax * item.quantity) / 100.0) %></td>
+          <td>$<%= sprintf("%.2f", (item.unit_price * item.quantity) / 100.0) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4"><strong>Subtotal:</strong></td>
+        <td>$<%= sprintf("%.2f", (@order.total_price - @order.tax_amount) / 100.0) %></td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <strong>Tax (<%= @order.address.province.name %>):</strong>
+          <% province = @order.address.province %>
+          <% if province.hst_rate > 0 %>
+            <br>HST (<%= province.hst_rate %>%)
+          <% else %>
+            <% if province.gst_rate > 0 %>
+              <br>GST (<%= province.gst_rate %>%)
+            <% end %>
+            <% if province.pst_rate > 0 %>
+              <br>PST (<%= province.pst_rate %>%)
+            <% end %>
           <% end %>
-          <% if province.pst_rate > 0 %>
-            <br>PST (<%= province.pst_rate %>%)
-          <% end %>
-        <% end %>
-      </td>
-      <td>$<%= sprintf("%.2f", @order.tax_amount / 100.0) %></td>
-    </tr>
-    <tr>
-      <td colspan="4"><strong>Total:</strong></td>
-      <td><strong>$<%= sprintf("%.2f", @order.total_price / 100.0) %></strong></td>
-    </tr>
-  </tfoot>
-</table>
+        </td>
+        <td>$<%= sprintf("%.2f", @order.tax_amount / 100.0) %></td>
+      </tr>
+      <tr>
+        <td colspan="4"><strong>Total:</strong></td>
+        <td><strong>$<%= sprintf("%.2f", @order.total_price / 100.0) %></strong></td>
+      </tr>
+    </tfoot>
+  </table>
 
-<p>
-  <%= link_to "View All Orders", orders_path %>
-  |
-  <%= link_to "Continue Shopping", products_path %>
-</p>
+  <p>
+    <%= link_to "View All Orders", orders_path %>
+    |
+    <%= link_to "Continue Shopping", products_path %>
+  </p>
+</div>
